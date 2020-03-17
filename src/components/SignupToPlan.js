@@ -72,7 +72,7 @@ class SignupToPlan extends Component {
             const sendExistingEmailSignup = functions.httpsCallable('sendExistingEmailSignup');
             await sendExistingEmailSignup({ 
                 email,
-                url: 'https://notlive.personaphile.com',
+                url: 'https://notlive.personafx.com',
                 ...plan[this.state.plan]
             })
             this.setState({
@@ -175,13 +175,13 @@ class SignupToPlan extends Component {
 
             if (resultRegistration.empty) {
                 const registrationDoc = await registrationRef.add({...registrationData, ...registrationPlan})
-                await this.handleSendEmailSignup(email, `https://notlive.personaphile.com/complete-registration/${registrationDoc.id}`);
+                await this.handleSendEmailSignup(email, `https://notlive.personafx.com/complete-registration/${registrationDoc.id}`);
             } else {
                 const registrations = resultRegistration.docs;
                 const registrationId = registrations[0].id;
                 const updateRegistration = db.collection("registrations").doc(registrationId);
                 await updateRegistration.update(registrationPlan)
-                await this.handleSendEmailSignup(email, `https://notlive.personaphile.com/complete-registration/${registrationId}`);
+                await this.handleSendEmailSignup(email, `https://notlive.personafx.com/complete-registration/${registrationId}`);
             }
         } catch (error) {
             console.log(error);
@@ -202,7 +202,7 @@ class SignupToPlan extends Component {
             <Container>
                 <Row>
                     <Col className="mx-auto my-5">
-                        <h1 className="title">Test Personaphile Signups</h1>
+                        <h1 className="title">Test Persona fx™ Signups</h1>
                         { this.state.error ?
                             <Alert variant="danger">{this.state.error}</Alert> : null
                         }
