@@ -48,6 +48,7 @@ class SignupToPlan extends Component {
         error: null,
         success: null,
         sendingData: false,
+        withoutPlan: false
     }
     
     checkEmailIsUsed = async email => {
@@ -202,7 +203,7 @@ class SignupToPlan extends Component {
             <Container>
                 <Row>
                     <Col className="mx-auto my-5">
-                        <h1 className="title">Test Persona fx™ Signups</h1>
+                        <h1 className="title">Test Persona <em>fx</em>™ Signups</h1>
                         { this.state.error ?
                             <Alert variant="danger">{this.state.error}</Alert> : null
                         }
@@ -236,13 +237,31 @@ class SignupToPlan extends Component {
                                         variant="primary" 
                                         size="lg" 
                                         block
-                                        className={this.state.sendingData ? 'show-spinner' : null}>
+                                        className={this.state.sendingData && !this.state.withoutPlan ? 'show-spinner' : null}>
                                             <div className="spinner">
                                                 <div className="bounce1"></div>
                                                 <div className="bounce2"></div>
                                                 <div className="bounce3"></div>
                                             </div>
                                             <div className="label">Signup now!</div>
+                                    </Button>
+                                    <div className="my-3">OR</div>
+                                    <Button 
+                                        disabled={this.state.sendingData} 
+                                        variant="warning" 
+                                        size="lg" 
+                                        block
+                                        onClick={e => {
+                                            this.setState({withoutPlan: true})
+                                            this.handleOnSubmit(e)
+                                        }}
+                                        className={this.state.sendingData && this.state.withoutPlan ? 'show-spinner' : null}>
+                                            <div className="spinner">
+                                                <div className="bounce1"></div>
+                                                <div className="bounce2"></div>
+                                                <div className="bounce3"></div>
+                                            </div>
+                                            <div className="label">Signup without plan</div>
                                     </Button>
                                 </Form>
                             </Col>
